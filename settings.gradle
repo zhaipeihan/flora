@@ -1,0 +1,4 @@
+rootProject.name = 'flora'
+include 'flora-core'
+include 'flora-demo'
+
