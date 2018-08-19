@@ -7,7 +7,7 @@ import cc.peihan.flora.core.annotation.ServiceProtocol;
 import cc.peihan.flora.core.bootstrap.FloraApplication;
 
 @HttpEngineSettingX(
-        serviceProtocal = ServiceProtocol.FLORA,
+        serviceProtocal = ServiceProtocol.FCP,
         port = 8888
 )
 @FloraBootApplication(basePackage = "cc.peihan.flora.demo")

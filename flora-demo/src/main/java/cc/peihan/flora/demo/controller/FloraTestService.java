@@ -1,13 +1,14 @@
 package cc.peihan.flora.demo.controller;
 
 
-import cc.peihan.flora.core.annotation.FloraService;
+import cc.peihan.flora.core.annotation.FCPService;
 
 
-@FloraService
+@FCPService
 public class FloraTestService {
 
-
-
+    public String ping() {
+        return "pong";
+    }
 
 }

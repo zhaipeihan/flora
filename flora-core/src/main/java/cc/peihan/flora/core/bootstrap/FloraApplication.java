@@ -3,8 +3,10 @@ package cc.peihan.flora.core.bootstrap;
 
 import cc.peihan.flora.core.annotation.FloraBootApplication;
 import cc.peihan.flora.core.annotation.HttpEngineSettingX;
+import cc.peihan.flora.core.annotation.ServiceProtocol;
 import cc.peihan.flora.core.helper.ConfigHelper;
 import cc.peihan.flora.core.http.HttpServer;
+import cc.peihan.flora.core.protocol.fcp.FcpMethodMapping;
 import org.apache.commons.lang3.StringUtils;
 
 public final class FloraApplication {
@@ -13,8 +15,17 @@ public final class FloraApplication {
         FloraApplication.preCheck(clazz);
         FloraBootApplication floraBootApplication = clazz.getAnnotation(FloraBootApplication.class);
         HttpEngineSettingX httpEngineSettingX = clazz.getAnnotation(HttpEngineSettingX.class);
+        //初始化配置
         initConfig(floraBootApplication, httpEngineSettingX);
+        //初始化方法mapping
+        initMethodMapping();
         start();
+    }
+
+    private static void initMethodMapping() {
+        if (ConfigHelper.getServiceProtocol() == ServiceProtocol.FCP) {
+            FcpMethodMapping.init();
+        }
     }
 
     private static void start() {
