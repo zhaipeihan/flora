@@ -6,7 +6,6 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
-import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,13 +24,11 @@ public class FloraHttpHandler extends SimpleChannelInboundHandler<FullHttpReques
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
-        logger.info("channelReadComplete");
         ctx.flush();
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        logger.info("exceptionCaught");
         if (cause != null) {
             cause.printStackTrace();
         }
