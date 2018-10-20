@@ -1,4 +1,4 @@
-package cc.peihan.flora.demo.controller;
+package cc.peihan.flora.demo.api;
 
 
 import cc.peihan.flora.core.annotation.FCPService;
