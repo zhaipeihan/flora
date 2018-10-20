@@ -11,4 +11,12 @@ public class FloraTestService {
         return "pong";
     }
 
+    public String echo(String name) {
+        return name;
+    }
+
+    public String echo2(String s1, String s2) {
+        return s1 + s2;
+    }
+
 }

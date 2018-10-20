@@ -15,7 +15,7 @@ public interface ProtocolProcesser {
 
 
     /**
-     * 执行mapping到方法
+     * 执行mapping的方法
      */
     void actInvoke();
 

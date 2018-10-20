@@ -27,6 +27,7 @@ public class InvokePayload {
 
     /**
      * 参数
+     * name:value
      */
     private Map<String,Object> parameters;
 

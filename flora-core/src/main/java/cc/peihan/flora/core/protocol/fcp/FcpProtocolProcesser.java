@@ -4,6 +4,7 @@ import cc.peihan.flora.core.protocol.AbstractProtocolProcesser;
 import cc.peihan.flora.core.protocol.payload.ErrorPayload;
 import cc.peihan.flora.core.protocol.payload.InvokePayload;
 import cc.peihan.flora.core.util.JsonUtil;
+import cc.peihan.flora.core.util.ReflexUtil;
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableSet;
 import io.netty.handler.codec.http.*;
@@ -12,6 +13,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class FcpProtocolProcesser extends AbstractProtocolProcesser {
@@ -66,8 +69,16 @@ public class FcpProtocolProcesser extends AbstractProtocolProcesser {
                 e.printStackTrace();
             }
         } else {
-
-
+            Object[] objects = ReflexUtil.orderMethodParam(method, this.invokePayload.getParameters());
+            try {
+                result = method.invoke(clazz.newInstance(), objects);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            }
         }
         this.invokePayload.setResult(result);
     }
