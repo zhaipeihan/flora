@@ -43,7 +43,7 @@ public class FcpProtocolProcesser extends AbstractProtocolProcesser {
             return invalid("service:[%s] has no method [%s]", requestPayload.getService(), requestPayload.getMethod());
         }
 
-        this.invokePayload.setClazz(FcpMethodMapping.mappingClass(requestPayload.getService()));
+        this.invokePayload.setClazz(FcpMethodMapping.mappingImplClass(requestPayload.getService()));
         this.invokePayload.setMethod(method);
         this.invokePayload.setParameters(requestPayload.getParams());
         return true;
