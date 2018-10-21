@@ -15,7 +15,7 @@ public class ReflexUtilTest {
     public void isImpl() {
         Class parent = TestInterface.class;
         Class child = TestInterfaceImpl.class;
-        HashSet<Class> hashSet = new HashSet<>();
+        HashSet<Class<?>> hashSet = new HashSet<>();
         hashSet.add(child);
         Set<Class> classes = ReflexUtil.findImplementationClass(parent, hashSet);
         System.out.println(classes);

@@ -1,5 +1,6 @@
 package cc.peihan.flora.core.protocol.fcp;
 
+import cc.peihan.flora.core.helper.InjectorHelper;
 import cc.peihan.flora.core.protocol.AbstractProtocolProcesser;
 import cc.peihan.flora.core.protocol.payload.ErrorPayload;
 import cc.peihan.flora.core.protocol.payload.InvokePayload;
@@ -13,8 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 public class FcpProtocolProcesser extends AbstractProtocolProcesser {
@@ -55,28 +54,21 @@ public class FcpProtocolProcesser extends AbstractProtocolProcesser {
 
         Class clazz = this.invokePayload.getClazz();
         Method method = this.invokePayload.getMethod();
+        Object newInstance = InjectorHelper.INSTANCE.getObject(clazz);
 
         Object result = null;
 
         if (MapUtils.isEmpty(this.invokePayload.getParameters())) {
             try {
-                result = method.invoke(clazz.newInstance());
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
+                result = method.invoke(newInstance);
+            } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
         } else {
             Object[] objects = ReflexUtil.orderMethodParam(method, this.invokePayload.getParameters());
             try {
-                result = method.invoke(clazz.newInstance(), objects);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
+                result = method.invoke(newInstance, objects);
+            } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
         }

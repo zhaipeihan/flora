@@ -1,13 +1,22 @@
 package cc.peihan.flora.demo.impl;
 
 
+import cc.peihan.flora.demo.action.FloraAction;
 import cc.peihan.flora.demo.api.FloraTestService;
+
+import javax.inject.Inject;
+
 
 public class FloraTestServiceImpl implements FloraTestService {
 
+
+    @Inject
+    private FloraAction floraAction;
+
+
     @Override
     public String ping() {
-        return null;
+        return floraAction.sayHello();
     }
 
     @Override
