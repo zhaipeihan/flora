@@ -5,6 +5,7 @@ import cc.peihan.flora.core.annotation.FloraBootApplication;
 import cc.peihan.flora.core.annotation.HttpEngineSettingX;
 import cc.peihan.flora.core.annotation.ServiceProtocol;
 import cc.peihan.flora.core.helper.ConfigHelper;
+import cc.peihan.flora.core.helper.InjectorHelper;
 import cc.peihan.flora.core.http.HttpServer;
 import cc.peihan.flora.core.protocol.fcp.FcpMethodMapping;
 import org.apache.commons.lang3.StringUtils;
@@ -19,7 +20,14 @@ public final class FloraApplication {
         initConfig(floraBootApplication, httpEngineSettingX);
         //初始化方法mapping
         initMethodMapping();
+        //初始化injector
+        initInjector();
+        //启动服务
         start();
+    }
+
+    private static void initInjector() {
+        InjectorHelper.INSTANCE.init();
     }
 
     private static void initMethodMapping() {
