@@ -36,4 +36,7 @@ public final class ClassHelper {
         return classSet;
     }
 
+    public static Set<Class<?>> getClassesByPackageName(String packageName) {
+        return ClassUtil.getClassSet(packageName);
+    }
 }

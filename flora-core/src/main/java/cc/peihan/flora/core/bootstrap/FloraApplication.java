@@ -1,9 +1,11 @@
 package cc.peihan.flora.core.bootstrap;
 
 
+import cc.peihan.flora.core.annotation.DatabaseSettingX;
 import cc.peihan.flora.core.annotation.FloraBootApplication;
 import cc.peihan.flora.core.annotation.HttpEngineSettingX;
 import cc.peihan.flora.core.annotation.ServiceProtocol;
+import cc.peihan.flora.core.helper.ClassHelper;
 import cc.peihan.flora.core.helper.ConfigHelper;
 import cc.peihan.flora.core.helper.InjectorHelper;
 import cc.peihan.flora.core.http.HttpServer;
@@ -16,18 +18,19 @@ public final class FloraApplication {
         FloraApplication.preCheck(clazz);
         FloraBootApplication floraBootApplication = clazz.getAnnotation(FloraBootApplication.class);
         HttpEngineSettingX httpEngineSettingX = clazz.getAnnotation(HttpEngineSettingX.class);
+        DatabaseSettingX databaseSettingX = clazz.getAnnotation(DatabaseSettingX.class);
         //初始化配置
         initConfig(floraBootApplication, httpEngineSettingX);
         //初始化方法mapping
         initMethodMapping();
         //初始化injector
-        initInjector();
+        initInjector(databaseSettingX);
         //启动服务
         start();
     }
 
-    private static void initInjector() {
-        InjectorHelper.INSTANCE.init();
+    private static void initInjector(DatabaseSettingX databaseSettingX) {
+        InjectorHelper.INSTANCE.init(ClassHelper.getClassesByPackageName(databaseSettingX.daoPackageName()));
     }
 
     private static void initMethodMapping() {

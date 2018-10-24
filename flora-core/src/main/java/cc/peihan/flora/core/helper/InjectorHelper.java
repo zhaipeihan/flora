@@ -4,6 +4,8 @@ import cc.peihan.flora.core.module.DatabaseModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
+import java.util.Set;
+
 public enum InjectorHelper {
 
     INSTANCE;
@@ -11,9 +13,9 @@ public enum InjectorHelper {
     private Injector injector;
 
 
-    public void init() {
+    public void init(Set<Class<?>> mybatisMapperClasses) {
         //注入mybatis配置
-        this.injector = Guice.createInjector(new DatabaseModule());
+        this.injector = Guice.createInjector(new DatabaseModule(mybatisMapperClasses));
     }
 
 
